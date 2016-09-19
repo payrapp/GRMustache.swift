@@ -27,7 +27,7 @@ import Mustache
 class TemplateRepositoryURLTests: XCTestCase {
     
     func testTemplateRepositoryWithURL() {
-        let testBundle = NSBundle(forClass: self.dynamicType)
+        let testBundle = NSBundle(forClass: type(of: self))
         let URL = testBundle.URLForResource("TemplateRepositoryFileSystemTests_UTF8", withExtension: nil)!
         let repo = TemplateRepository(baseURL: URL)
         var template: Template
@@ -57,7 +57,7 @@ class TemplateRepositoryURLTests: XCTestCase {
     }
     
     func testTemplateRepositoryWithURLTemplateExtensionEncoding() {
-        let testBundle = NSBundle(forClass: self.dynamicType)
+        let testBundle = NSBundle(forClass: type(of: self))
         var URL: NSURL
         var repo: TemplateRepository
         var template: Template
@@ -101,7 +101,7 @@ class TemplateRepositoryURLTests: XCTestCase {
     }
     
     func testAbsolutePartialName() {
-        let testBundle = NSBundle(forClass: self.dynamicType)
+        let testBundle = NSBundle(forClass: type(of: self))
         let URL = testBundle.URLForResource("TemplateRepositoryFileSystemTests", withExtension: nil)!
         let repo = TemplateRepository(baseURL: URL)
         let template = try! repo.template(named: "base")
@@ -110,9 +110,9 @@ class TemplateRepositoryURLTests: XCTestCase {
     }
     
     func testPartialNameCanNotEscapeTemplateRepositoryRootURL() {
-        let testBundle = NSBundle(forClass: self.dynamicType)
+        let testBundle = NSBundle(forClass: type(of: self))
         let URL = testBundle.URLForResource("TemplateRepositoryFileSystemTests", withExtension: nil)!
-        let repo = TemplateRepository(baseURL: URL.URLByAppendingPathComponent("partials"))
+        let repo = TemplateRepository(baseURL: URL.URLByAppendingPathComponent("partials")!)
         
         let template = try! repo.template(named: "partial2")
         let rendering = try! template.render()
